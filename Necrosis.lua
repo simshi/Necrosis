@@ -97,6 +97,7 @@ Local.DefaultConfig = {
 	ChatMsg = true,
 	ChatType = true,
 	Language = GetLocale(),
+	ForceEnglish = false,
 	ShowCount = true,
 	CountType = 1,
 	DestroyShardwithsphere = true,

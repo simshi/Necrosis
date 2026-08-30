@@ -37,6 +37,7 @@ Necrosis.Config = {
 	ChatMsg = true,
 	ChatType = true,
 	Language = GetLocale(),
+	ForceEnglish = false,
 	ShowCount = false,
 	CountType = 3,
 	DestroyShardwithsphere = true,

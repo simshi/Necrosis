@@ -118,14 +118,27 @@ end
 -- Replace user-friendly string variables in the invocation messages
 ------------------------------------------------------------------------------------------------------
 local function MsgReplace(msg, player, target, pet)
+	-- Process emotes before other replacements
+	local emoteText = nil
+	if msg:find("<emote>") then
+		-- Extract the emote text after the <emote> tag
+		emoteText = msg:gsub("<emote>%s*", ""):gsub("<after>.*", ""):gsub("<sacrifice>.*", ""):gsub("<yell>.*", "")
+		emoteText = emoteText:gsub("<player>", player):gsub("<target>", target):gsub("<pet>", pet)
+		if emoteText and emoteText:len() > 0 then
+			DoEmote(emoteText)
+		end
+	end
+
+	-- Remove all special tags
 	msg = msg:gsub("<emote>", "")
 	msg = msg:gsub("<after>", "")
 	msg = msg:gsub("<sacrifice>", "")
 	msg = msg:gsub("<yell>", "")
 
-		msg = msg:gsub("<player>", player)
-		msg = msg:gsub("<target>", target)
-		msg = msg:gsub("<pet>", pet)
+	-- Replace variables
+	msg = msg:gsub("<player>", player)
+	msg = msg:gsub("<target>", target)
+	msg = msg:gsub("<pet>", pet)
 
 	if Necrosis.Debug.speech then
 		_G["DEFAULT_CHAT_FRAME"]:AddMessage("MsgReplace"

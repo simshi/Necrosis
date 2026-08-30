@@ -362,6 +362,32 @@ function Necrosis:SetMessagesConfig()
 	
 
 
+		-- Force English Language
+		y = y + y_offset
+		frame = CreateFrame("CheckButton", "NecrosisForceEnglishCheckButton", NecrosisMessagesConfig, "UICheckButtonTemplate")
+		frame:EnableMouse(true)
+		frame:SetWidth(24)
+		frame:SetHeight(24)
+		frame:Show()
+		frame:ClearAllPoints()
+		frame:SetPoint("LEFT", NecrosisMessagesConfig, "TOPLEFT", x_offset, y)
+
+		frame:SetScript("OnClick", function(self)
+			NecrosisConfig.ForceEnglish = self:GetChecked()
+			if NecrosisConfig.ForceEnglish then
+				print("|cFF00FF00Necrosis:|r Language set to English. Reload UI with /reload to apply changes.")
+			else
+				print("|cFF00FF00Necrosis:|r Language reset to client default. Reload UI with /reload to apply changes.")
+			end
+		end)
+
+		FontString = frame:CreateFontString(nil, nil, "GameFontNormalSmall")
+		FontString:Show()
+		FontString:ClearAllPoints()
+		FontString:SetPoint("LEFT", frame, "RIGHT", 5, 1)
+		FontString:SetTextColor(1, 1, 1)
+		frame:SetFontString(FontString)
+
 	end
 
 	NecrosisShowTooltip:SetChecked(NecrosisConfig.NecrosisToolTip)
@@ -378,7 +404,10 @@ function Necrosis:SetMessagesConfig()
 	NecrosisSound:SetChecked(NecrosisConfig.Sound)
 	NecrosisFear:SetChecked(NecrosisConfig.AntiFearAlert)
 	NecrosisBanish:SetChecked(NecrosisConfig.Banish)
-	
+	if NecrosisForceEnglishCheckButton then
+		local desiredState = NecrosisConfig.ForceEnglish and 1 or nil
+		NecrosisForceEnglishCheckButton:SetChecked(desiredState)
+	end
 
 
 	NecrosisShowTooltip:SetText(self.Config.Messages["Afficher les bulles d'aide"])
@@ -395,7 +424,7 @@ function Necrosis:SetMessagesConfig()
 	NecrosisSound:SetText(self.Config.Messages["Activer les sons"])
 	NecrosisFear:SetText(self.Config.Messages["Alerter quand la cible est insensible a la peur"])
 	NecrosisBanish:SetText(self.Config.Messages["Alerter quand la cible peut etre banie ou asservie"])
-	
+	NecrosisForceEnglishCheckButton:SetText((L and L["FORCE_ENGLISH"]) or "Force English language")
 
 	SetRandom(NecrosisConfig.ChatMsg)
 	frame:Show()

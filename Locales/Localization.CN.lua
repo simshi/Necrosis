@@ -44,6 +44,7 @@ L["DESTROY_SHARD_MENU_LABEL"] = "|c00FF99FF".."销毁灵魂石碎片".."|r"
 L["DESTROY_SHARD_MENU_TEXT"] = "达到上限时，右键销毁灵魂碎片："
 
 --
+L["FORCE_ENGLISH"] = "强制使用英文"
 L["SOULSTONE_TEXT_1"] = "制造"
 L["SOULSTONE_TEXT_2"] = "可使用"
 L["SOULSTONE_TEXT_3"] = "已使用"

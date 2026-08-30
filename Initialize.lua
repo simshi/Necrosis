@@ -204,7 +204,7 @@ end)
 -- Simple version storage (from TOC file)
 Necrosis.Data = {
 	AppName = "Necrosis",
-	Version = "8.8.4",  -- Update manually when releasing
+	Version = "8.8.5",  -- Update manually when releasing
 	Enabled = false,
 }
 
@@ -426,13 +426,20 @@ local Events = {
 -- FONCTION D'INITIALISATION
 ------------------------------------------------------------------------------------------------------
 
+function Necrosis:GetEffectiveLocale()
+	if NecrosisConfig and NecrosisConfig.ForceEnglish then
+		return "enUS"
+	end
+	return GetLocale()
+end
+
 function Necrosis:Initialize_Speech()
 	self.Localization_Dialog()
-	
+
 	-- Speech could not be done using Ace...
 	self.Speech.TP = {}
 	local lang = ""
-	lang = GetLocale()
+	lang = self:GetEffectiveLocale()
 	Necrosis.Data.Lang = lang
 	if lang == "frFR" then
 		self:Localization_Speech_Fr()
